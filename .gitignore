@@ -5,3 +5,4 @@ client/build
 node_modules
 server/venv
 server/test
+server/key.json
