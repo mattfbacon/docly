@@ -1,23 +1,23 @@
 {
-  "name": "docly",
-  "version": "1.0.0",
-  "description": "Document OCR + Google Docs integration",
-  "author": "Matt Fellenz, Kevin Toren",
-  "license": "AGPL-3.0-or-later",
-  "private": false,
-  "dependencies": {
-    "react": "^17.0.2",
-    "react-bootstrap": "^2.2.1",
-    "react-dom": "^17.0.2",
-    "react-google-login": "^5.2.2",
-    "react-webcam": "^7.0.0"
-  },
-  "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
-  },
-  "devDependencies": {
-    "@parcel/transformer-less": "2.3.2",
-    "parcel": "^2.3.2"
-  }
+	"name": "docly",
+	"version": "1.0.0",
+	"description": "Document OCR + Google Docs integration",
+	"author": "Matt Fellenz, Kevin Toren",
+	"license": "AGPL-3.0-or-later",
+	"private": false,
+	"dependencies": {
+		"react": "^17.0.2",
+		"react-bootstrap": "^2.2.1",
+		"react-dom": "^17.0.2",
+		"react-google-login": "^5.2.2",
+		"react-webcam": "^7.0.0"
+	},
+	"scripts": {
+		"dev": "parcel src/index.html --dist-dir ./build",
+		"build": "parcel build src/index.html --dist-dir ./build"
+	},
+	"devDependencies": {
+		"@parcel/transformer-less": "2.3.2",
+		"parcel": "^2.3.2"
+	}
 }
