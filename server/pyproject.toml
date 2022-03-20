@@ -1,0 +1,3 @@
+[tool.yapf]
+use_tabs = true
+indent_width = 1
