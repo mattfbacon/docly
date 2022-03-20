@@ -13,8 +13,8 @@
 		"react-webcam": "^7.0.0"
 	},
 	"scripts": {
-		"dev": "parcel src/index.html",
-		"build": "parcel build src/index.html"
+		"dev": "parcel src/index.html --dist-dir ./build",
+		"build": "parcel build src/index.html --dist-dir ./build"
 	},
 	"devDependencies": {
 		"@parcel/transformer-less": "2.3.2",
