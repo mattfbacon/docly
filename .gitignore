@@ -1,0 +1,7 @@
+client/client-id
+client/auth.json
+client/build
+.parcel-cache
+node_modules
+server/venv
+server/test
