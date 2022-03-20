@@ -2,7 +2,6 @@
   "name": "docly",
   "version": "1.0.0",
   "description": "Document OCR + Google Docs integration",
-  "main": "index.js",
   "author": "Matt Fellenz, Kevin Toren",
   "license": "AGPL-3.0-or-later",
   "private": false,
