@@ -45,7 +45,7 @@ class OCR:
 			cur_y = cur_vertices[2].y
 			prev_y = prev_vertices[2].y
 
-			if cur_y-prev_y > 20:
+			if cur_y-prev_y > 14:
 				if not found:
 					if prev_height-cur_height > 15:
 						found = True
