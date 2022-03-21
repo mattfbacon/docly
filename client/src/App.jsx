@@ -16,7 +16,7 @@ function MaybeSubmit({ image, auth, onSubmit }) {
 			<button onClick={onSubmit} disabled={disabled_message != null}>
 				Submit
 			</button>
-			{disabled_message && <p>{disabled_message}</p>}
+			{disabled_message && <small>{disabled_message}</small>}
 		</>
 	);
 }
