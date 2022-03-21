@@ -54,10 +54,11 @@ class App extends Component {
 		console.log("Submitting!");
 		let resp = await fetch("/api/submit", {
 			method: "post",
-			body: {
+			body: JSON.stringify({
 				image: this.state.image,
 				auth: this.state.auth,
-			},
+			}),
+			headers: {"Content-Type": "application/json"}
 		});
 		resp = await resp.json();
 		this.setState({ finalUrl: resp.url });
