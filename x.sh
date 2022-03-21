@@ -1,9 +1,12 @@
 #!/bin/sh
 
+trap 'kill $(jobs -p) 2>/dev/null' EXIT
+
 case $1 in
 	dev)
 		./x.sh dev-client &
 		./x.sh dev-server &
+		wait
 	;;
 	dev-client)
 		npx parcel watch --dist-dir ./client/build ./client/src/index.html
