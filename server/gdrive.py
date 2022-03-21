@@ -18,6 +18,7 @@ class GDrive:
 		write_control = { 'targetRevisionId': doc['revisionId'] }
 		currently_inside_hyperlink = False
 		doc = doc['documentId']
+		current_position = 0
 		while len(contents) > 0:
 			segment_marker = ']' if currently_inside_hyperlink else '['
 			split = contents.split(segment_marker, 1)
@@ -37,7 +38,22 @@ class GDrive:
 								'segmentId': '',
 							},
 						}
+					}, {
+						'updateTextStyle': {
+							'textStyle': {
+								'link': {
+									'url': url,
+								},
+							},
+							'fields': 'link',
+							'range': {
+								'segmentId': '',
+								'startIndex': current_position,
+								'endIndex': current_position + len(segment),
+							},
+						}
 					}]
+					current_position += len(segment)
 				else:
 					inner = [{
 						'insertText': {
@@ -48,6 +64,7 @@ class GDrive:
 							},
 						}
 					}]
+					current_position += len(segment) + 2
 			else:
 				inner = [{
 					'insertText': {
@@ -57,6 +74,7 @@ class GDrive:
 						},
 					}
 				}]
+				current_position += len(segment) + 2
 			resp = requests.post(update_url, json={
 				'requests': inner,
 				'writeControl': write_control,
