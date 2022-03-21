@@ -28,7 +28,7 @@ class OCR:
 
 		for i in range(len(words)):
 			try:
-				if words[i+1].isalpha() or len(words[i+1]) > 1:
+				if (words[i+1].isalpha() or len(words[i+1]) > 1) and words[i] != "[":
 					words[i] += " "
 			except IndexError:
 				continue
@@ -45,7 +45,6 @@ class OCR:
 			cur_y = cur_vertices[2].y
 			prev_y = prev_vertices[2].y
 
-			#print(words[i-1], prev_height-cur_height, cur_y-prev_y)
 			if cur_y-prev_y > 20:
 				if not found:
 					if prev_height-cur_height > 15:
