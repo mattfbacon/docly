@@ -9,6 +9,3 @@ flask = "*"
 google-cloud-vision = "*"
 
 [dev-packages]
-
-[requires]
-python_version = "3.9"
