@@ -14,10 +14,13 @@ def root():
 
 @app.route("/api/submit", methods=["POST"])
 def submit():
-    json = request.json
-    info = ocr.get_info(json["image"])
-    print(info)
-    # gdrive = GDrive(json["auth"], text)
-    # gdrive.make_doc(text)
+    json = request.get_json(force=True)
+    text, title = ocr.get_info(json["image"])
+    title = title or 'My Docly Document'
+    print(title)
+    print(text)
+    gdrive = GDrive(json["auth"])
+    id = gdrive.upload_file(title, text)
+    return {'url': f"https://docs.google.com/document/d/{id}/edit"}
 
-app.run("localhost", 3000)
+app.run("localhost", 1234)
