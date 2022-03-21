@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 flask = "*"
+google-cloud-vision = "*"
 
 [dev-packages]
 
