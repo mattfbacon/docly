@@ -48,8 +48,8 @@ class GDrive:
 							'fields': 'link',
 							'range': {
 								'segmentId': '',
-								'startIndex': current_position,
-								'endIndex': current_position + len(segment),
+								'startIndex': current_position + 1,
+								'endIndex': current_position + len(segment) + 1,
 							},
 						}
 					}]
