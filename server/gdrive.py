@@ -1,4 +1,8 @@
 import requests
+import re
+
+def make_url(id):
+	return f"https://docs.google.com/document/d/{id}/edit"
 
 class GDrive:
 	__slots__ = ['headers']
@@ -10,22 +14,57 @@ class GDrive:
 		resp = requests.post("https://docs.googleapis.com/v1/documents", json={'title': name}, headers=self.headers)
 		resp.raise_for_status()
 		doc = resp.json()
-		resp = requests.post(f'https://docs.googleapis.com/v1/documents/{doc["documentId"]}:batchUpdate', json={
-			'requests': [
-				{
+		update_url = f'https://docs.googleapis.com/v1/documents/{doc["documentId"]}:batchUpdate'
+		write_control = { 'targetRevisionId': doc['revisionId'] }
+		currently_inside_hyperlink = False
+		doc = doc['documentId']
+		while len(contents) > 0:
+			segment_marker = ']' if currently_inside_hyperlink else '['
+			split = contents.split(segment_marker, 1)
+			if len(split) > 1:
+				[segment, contents] = split
+			else:
+				segment = split[0]
+				contents = ''
+			if currently_inside_hyperlink:
+				id = self.search_file_by_title(segment.strip())
+				if id is not None:
+					url = make_url(id)
+					inner = [{
+						'insertText': {
+							'text': segment,
+							'endOfSegmentLocation': {
+								'segmentId': '',
+							},
+						}
+					}]
+				else:
+					inner = [{
+						'insertText': {
+							# put it back in brackets if the hyperlink creation failed
+							'text': f'[{segment}]',
+							'endOfSegmentLocation': {
+								'segmentId': '',
+							},
+						}
+					}]
+			else:
+				inner = [{
 					'insertText': {
-						'text': contents,
+						'text': segment,
 						'endOfSegmentLocation': {
 							'segmentId': '',
 						},
 					}
-				},
-			],
-			'writeControl': {
-				'targetRevisionId': doc['revisionId'],
-			},
-		}, headers=self.headers).raise_for_status()
-		return doc['documentId']
+				}]
+			resp = requests.post(update_url, json={
+				'requests': inner,
+				'writeControl': write_control,
+			}, headers=self.headers)
+			resp.raise_for_status()
+			write_control = resp.json()['writeControl']
+			currently_inside_hyperlink = not currently_inside_hyperlink
+		return doc
 
 	def search_file_by_title(self, title):
 		escaped_title = title.replace(r"'", r"\'")

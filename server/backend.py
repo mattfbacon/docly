@@ -1,6 +1,6 @@
 from flask import Flask, request, send_from_directory, send_file
 from ocr import OCR
-from gdrive import GDrive
+from gdrive import GDrive, make_url
 
 ocr = OCR()
 
@@ -21,6 +21,6 @@ def submit():
     print(text)
     gdrive = GDrive(json["auth"])
     id = gdrive.upload_file(title, text)
-    return {'url': f"https://docs.google.com/document/d/{id}/edit"}
+    return {'url': make_url(id)}
 
 app.run("localhost", 1234)
