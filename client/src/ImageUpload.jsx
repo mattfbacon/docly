@@ -1,9 +1,3 @@
-/*
-function ImageUpload() {
-	return <button onClick={}>Upload an image</button>;
-}
-*/
-
 import { Component } from "react";
 import Webcam from "react-webcam";
 
