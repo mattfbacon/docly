@@ -1,4 +1,5 @@
 from google.cloud import vision
+import re
 import os, io
 import base64
 import string
@@ -57,11 +58,7 @@ class OCR:
 		return (text, title)
 
 	def get_img(self, bytes):
-			content = base64.b64decode(bytes)
-			return vision.Image(content=content)
-			# file_name = os.path.abspath('test/test13.jpg')
-
-			# with io.open(file_name, 'rb') as image_file:
-			# 	content = image_file.read()
-
-			# return vision.Image(content=content)
+		bytes = re.sub(r'data:image/.+;base64,', '', bytes)
+		print(bytes)
+		content = base64.b64decode(bytes)
+		return vision.Image(content=content)
