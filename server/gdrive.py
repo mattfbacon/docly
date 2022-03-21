@@ -10,7 +10,7 @@ class GDrive:
 		resp = requests.post("https://docs.googleapis.com/v1/documents", json={'title': name}, headers=self.headers)
 		resp.raise_for_status()
 		doc = resp.json()
-		requests.post(f'https://docs.googleapis.com/v1/documents/{doc["documentId"]}:batchUpdate', json={
+		resp = requests.post(f'https://docs.googleapis.com/v1/documents/{doc["documentId"]}:batchUpdate', json={
 			'requests': [
 				{
 					'insertText': {
@@ -25,6 +25,7 @@ class GDrive:
 				'targetRevisionId': doc['revisionId'],
 			},
 		}, headers=self.headers).raise_for_status()
+		return doc['documentId']
 
 	def search_file_by_title(self, title):
 		escaped_title = title.replace(r"'", r"\'")
