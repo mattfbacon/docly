@@ -74,7 +74,7 @@ class GDrive:
 						},
 					}
 				}]
-				current_position += len(segment) + 2
+				current_position += len(segment)
 			resp = requests.post(update_url, json={
 				'requests': inner,
 				'writeControl': write_control,
