@@ -76,7 +76,7 @@ class App extends Component {
 					onSuccess={(auth) => {
 						this.auth = auth;
 					}}
-					onFailure={alert}
+					onFailure={(err) => { alert("Error: " + JSON.stringify(err)); }}
 					render={makeMakeGoogleButton(this.state.auth != null)}
 					cookiePolicy={"single_host_origin"}
 				/>
