@@ -23,4 +23,4 @@ def submit():
     id = gdrive.upload_file(title, text)
     return {'url': make_url(id)}
 
-app.run("localhost", 1234)
+app.run("localhost", 0)
